@@ -12,10 +12,10 @@ import java.util.Scanner;
  */
 public class App 
 {
-    public static void main( String[] args )
-    {
-        try{
-            System.out.println( "Il client e' partito!" );
+    public static void main( String[] args ) {
+
+        try {
+            System.out.println("Il client è partito!");
             Socket s = new Socket("localhost", 3000);
 
             BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
@@ -23,22 +23,26 @@ public class App
 
             Scanner scanner = new Scanner(System.in);
 
-            int nRicevuto;
-            out.writeBytes(scanner.nextLine() + "\n");
+            int risposta;
+            do {
+                System.out.print("Inserisci un numero: ");
+                int numero = scanner.nextInt();
+                out.writeBytes(String.valueOf(numero) + '\n');
 
-            do{
-                nRicevuto = Integer.parseInt(in.readLine());
-                if(nRicevuto == 1)
-                    System.out.println("Il numero e' troppo piccolo");
-                else if(nRicevuto == 2)
-                    System.out.println("Il numero e' troppo grande");
-                out.writeBytes(scanner.nextLine() + "\n");
-            }while(nRicevuto!=3);
+                risposta = Integer.parseInt(in.readLine());
+                if (risposta == 1) {
+                    System.out.println("Il numero è troppo piccolo");
+                } else if (risposta == 2) {
+                    System.out.println("Il numero è troppo grande");
+                }
+            } while (risposta != 3);
 
-        } catch(Exception e){
+            s.close();
+        } catch (Exception e) {
             System.out.println(e.getMessage());
-            System.out.println("C'e' stato un errore nella fase di connessione");
+            System.out.println("C'è stato un errore nella fase di connessione");
             System.exit(1);
         }
+
     }
 }
