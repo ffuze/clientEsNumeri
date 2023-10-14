@@ -21,6 +21,8 @@ public class App
             BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
             DataOutputStream out = new DataOutputStream(s.getOutputStream());
 
+            System.out.println(in.readLine());
+
             Scanner scanner = new Scanner(System.in);
 
             int risposta;
@@ -30,14 +32,18 @@ public class App
                 out.writeBytes(String.valueOf(numero) + '\n');
 
                 risposta = Integer.parseInt(in.readLine());
-                if (risposta == 1) {
-                    System.out.println("Il numero è troppo piccolo");
-                } else if (risposta == 2) {
-                    System.out.println("Il numero è troppo grande");
-                }
+                
+                if (risposta == 1) 
+                    System.out.println("Il numero e' troppo piccolo");
+                else if (risposta == 2)
+                    System.out.println("Il numero e' troppo grande");
+
             } while (risposta != 3);
 
+            System.out.println("Bravo hai indovinato");
+
             s.close();
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
             System.out.println("C'è stato un errore nella fase di connessione");
